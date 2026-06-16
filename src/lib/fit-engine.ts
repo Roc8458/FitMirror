@@ -4,6 +4,7 @@ export function estimateBody(profile: BodyProfile) {
   const bmi = profile.weight / Math.pow(profile.height / 100, 2);
   const typeFactor = { slim: -3, balanced: 0, curvy: 5, strong: 4 }[profile.bodyType];
   const genderFactor = profile.gender === "female" ? -3 : 3;
+
   return {
     bmi,
     chest: 78 + bmi * 0.75 + typeFactor + genderFactor,
@@ -22,13 +23,29 @@ export function analyzeFit(profile: BodyProfile, garment: Garment, size: string,
   const ease = circumference ? circumference - bodyCirc : 12;
   const fit = ease < 2 ? "紧身" : ease < 10 ? "合身" : ease < 20 ? "微宽松" : "宽松";
   const targetLength = garment.category === "pants" ? body.leg * 1.2 : body.torso * 1.15;
-  const actualLength = garment.category === "pants" ? (m.length ?? targetLength) : (m.length ?? targetLength);
+  const actualLength = m.length ?? targetLength;
   const delta = actualLength - targetLength;
   const length = delta < -4 ? "偏短" : delta > 5 ? "偏长" : "适中";
   const poseStress = { front: 0, side: 1, back: 1, walk: 3, akimbo: 4, lookdown: 2, sit: 5 }[pose];
   const materialFold = garment.fabric.drape + garment.fabric.thickness - garment.fabric.stiffness;
-  const wrinkle = garment.category === "pants"
-    ? delta > 4 ? "裤脚轻微堆积" : poseStress >= 4 ? "膝部与裆部褶皱明显" : "裤线自然"
-    : poseStress >= 4 ? "腋下与腰腹形成动作褶" : materialFold > 3 ? "自然垂坠" : "轮廓较挺括";
-  return { garmentId: garment.id, fit, length, wrinkle, score: Math.max(35, Math.min(98, 90 - Math.abs(ease - 10) - Math.abs(delta) * 1.4)) };
+  const wrinkle =
+    garment.category === "pants"
+      ? delta > 4
+        ? "裤脚轻微堆积"
+        : poseStress >= 4
+          ? "膝部与裆部动作褶明显"
+          : "裤线自然"
+      : poseStress >= 4
+        ? "腋下与腰腹形成动作褶"
+        : materialFold > 3
+          ? "自然垂坠"
+          : "轮廓较挺括";
+
+  return {
+    garmentId: garment.id,
+    fit,
+    length,
+    wrinkle,
+    score: Math.max(35, Math.min(98, 90 - Math.abs(ease - 10) - Math.abs(delta) * 1.4)),
+  };
 }

@@ -22,6 +22,7 @@ yarn-error.log*
 # generated verification artifacts
 visual-*.png
 design-concept.png
+fitmirror-redesign-concept.png
 
 # local media/work artifacts from earlier experiments
 work/

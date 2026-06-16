@@ -7,8 +7,25 @@ const sizes = (base: { chest?: number; waist?: number; hip?: number; length?: nu
   XL: Object.fromEntries(Object.entries(base).map(([k, v]) => [k, (v ?? 0) + (k === "length" || k === "inseam" ? 2 : 8)])),
 });
 
-const make = (id: string, name: string, category: GarmentCategory, color: string, accent: string, base: Parameters<typeof sizes>[0], silhouette: Garment["silhouette"] = "regular", fabric = { thickness: 2, stretch: 2, stiffness: 2, drape: 3 }): Garment => ({
-  id, name, category, color, accent, sizes: sizes(base), defaultSize: "M", fabric, silhouette,
+const make = (
+  id: string,
+  name: string,
+  category: GarmentCategory,
+  color: string,
+  accent: string,
+  base: Parameters<typeof sizes>[0],
+  silhouette: Garment["silhouette"] = "regular",
+  fabric = { thickness: 2, stretch: 2, stiffness: 2, drape: 3 },
+): Garment => ({
+  id,
+  name,
+  category,
+  color,
+  accent,
+  sizes: sizes(base),
+  defaultSize: "M",
+  fabric,
+  silhouette,
 });
 
 export const garments: Garment[] = [
@@ -39,7 +56,13 @@ export const garments: Garment[] = [
 ];
 
 export const categories: { id: GarmentCategory; label: string }[] = [
-  { id: "hat", label: "帽子" }, { id: "glasses", label: "眼镜" }, { id: "inner", label: "内搭" },
-  { id: "top", label: "外搭" }, { id: "coat", label: "外套" }, { id: "belt", label: "腰带" },
-  { id: "pants", label: "裤子" }, { id: "socks", label: "袜子" }, { id: "shoes", label: "鞋子" },
+  { id: "hat", label: "帽子" },
+  { id: "glasses", label: "眼镜" },
+  { id: "inner", label: "内搭" },
+  { id: "top", label: "外搭" },
+  { id: "coat", label: "外套" },
+  { id: "belt", label: "腰带" },
+  { id: "pants", label: "裤子" },
+  { id: "socks", label: "袜子" },
+  { id: "shoes", label: "鞋子" },
 ];
