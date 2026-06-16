@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# production
+dist/
+build/
+
+# environment
+.env
+.env*.local
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# generated verification artifacts
+visual-*.png
+design-concept.png
+
+# local media/work artifacts from earlier experiments
+work/
+tools/
+*.mp4
+*.wav
+*.docx
+AUDIO_CREDITS.md
+fill_design_doc.py
+make_xianxia_audio.py
+match_reference_audio.py
